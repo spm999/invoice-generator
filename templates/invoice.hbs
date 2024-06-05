@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .header,
+        .footer {
+            text-align: center;
+        }
+
+        .content {
+            margin: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .table,
+        .table th,
+        .table td {
+            border: 1px solid black;
+        }
+
+        .table th,
+        .table td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        img {
+            width: 100px;
+            height: 50px;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .flex-container div {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .left {
+            text-align: left;
+        }
+
+        .right {
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="flex-container">
+        <div class="left">
+            <div class="logo">
+                <img src="{{company}}" alt="Company Logo" style="width: 150px;">
+            </div>
+        </div>
+        <div class="right header">
+            <h3>Tax Invoice/Bill of Supply/Cash Memo</h3>
+            <h3 style="font-weight: 300;">(Original for Recipient)</h3>
+        </div>
+    </div>
+
+    <div class="content flex-container">
+        <div class="left">
+            <p><strong>Sold By :</strong> {{seller.name}}</p>
+            <p>{{seller.address}}, {{seller.city}}, {{seller.state}}, {{seller.pincode}}</p>
+            <p><strong>PAN No:</strong> {{seller.panNo}}</p>
+            <p><strong>GST Registration No: </strong>{{seller.gstNo}}</p>
+        </div>
+
+        <div class="right">
+            <h3>Billing Address:</h3>
+            <p>{{billing.name}}</p>
+            <p>{{billing.address}}, {{billing.city}}, {{billing.state}}, {{billing.pincode}}</p>
+            <p><strong>State/UT Code: </strong>{{billing.stateCode}}</p>
+        </div>
+    </div>
+
+    <div class="flex-container">
+        <div class="left">
+            <p><strong>Order Number: </strong>{{orderNo}}</p>
+            <p><strong>Order Date: </strong>{{orderDate}}</p>
+        </div>
+
+        <div class="right">
+            <h3>Shipping Address:</h3>
+            <p>{{shipping.name}}</p>
+            <p>{{shipping.address}}, {{shipping.city}}, {{shipping.state}}, {{shipping.pincode}}</p>
+            <p><strong>State/UT Code: </strong>{{shipping.stateCode}}</p>
+            <p><strong>Place of Supply:</strong> {{placeOfSupply}}</p>
+            <p><strong>Place of Delivery:</strong> {{placeOfDelivery}}</p>
+            <p><strong>Invoice Number:</strong> {{invoiceNo}}</p>
+            <p><strong>Invoice Date:</strong>{{invoiceDate}}</p>
+            <p><strong>Reverse Charge:</strong> {{reverseCharge}}</p>
+        </div>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>Sl. No.</th>
+            <th>Description</th>
+            <th>Unit Price</th>
+            <th>Qty</th>
+            <th>Net Amount</th>
+            <th>Tax Rate</th>
+            <th>Tax Type</th>
+            <th>Tax Amount</th>
+            <th>Total Amount</th>
+        </tr>
+        {{#each items}}
+        <tr>
+            <td>{{incrementedIndex @index}}</td>
+            <td>{{description}}</td>
+            <td>{{unitPrice}}</td>
+            <td>{{quantity}}</td>
+            <td>{{netAmount}}</td>
+            <td>{{taxRate}}%</td>
+            <td>{{taxType}}</td>
+            <td>{{taxAmount}}</td>
+            <td>{{totalAmount}}</td>
+        </tr>
+        {{/each}}
+        <tr>
+        <tr>
+            <td colspan="8" style="text-align: left;"><strong>Total Amount: </strong></td>
+            <td><strong>₹{{totalAmount}}</strong></td>
+        </tr>
+
+        <tr>
+            <td colspan="9" style="text-align: left;"><strong>Amount in words: </strong>
+                ₹{{amountInWords}}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="9" style="text-align: right;" class="footer">
+                <p>For {{seller.name}}:</p>
+                <img src= "{{signature}}" alt="Signature" style="width: 100px;">
+                <p>Authorised Signatory</p>
+            </td>
+        </tr>
+        </tr>
+    </table>
+
+</body>
+
+</html>
